@@ -1,4 +1,4 @@
-package com.moviessearcher;
+package com.comicsapp;
 
 import android.app.Application;
 

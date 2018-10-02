@@ -1,4 +1,4 @@
-package com.moviessearcher;
+package com.comicsapp;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "MoviesSearcher";
+        return "ComicsApp";
     }
 }
