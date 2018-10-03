@@ -22,7 +22,7 @@ export function configureAxios() {
  * @return {AxiosPromise<Comic[]>}
  */
 export function fetchComics(offset = 0, limit = 30): AxiosPromise<Comic[]> {
-  const url = `/comics?apikey=${PUBLIC_API_KEY}&limit=${limit}&offset=${offset}`;
+  const url = `/comics?apikey=${PUBLIC_API_KEY}&limit=${limit}&offset=${offset}&orderBy=title`;
   return axios.get(url);
 }
 
