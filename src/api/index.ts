@@ -2,11 +2,10 @@ import axios, { AxiosPromise } from 'axios';
 
 import { Comic, Character } from './models';
 
-const PUBLIC_API_KEY = '01a836d781951559381f4c504ecd9957'
-const PRIVATE_API_KEY = '33729382a0144cf9761002fc90ebf4b97e942b7e'
+const PUBLIC_API_KEY = '01a836d781951559381f4c504ecd9957';
+const PRIVATE_API_KEY = '33729382a0144cf9761002fc90ebf4b97e942b7e';
 const ORIGIN = 'training.kc.com'
 
-// const BASE_URL = 'http://api-got.keepcoding.io/doc';
 const BASE_URL = 'https://gateway.marvel.com/v1/public';
 
 export function configureAxios() {
@@ -22,7 +21,7 @@ export function configureAxios() {
  * @return {AxiosPromise<Comic[]>}
  */
 export function fetchComics(offset = 0, limit = 30): AxiosPromise<Comic[]> {
-  const url = `/comics?apikey=${PUBLIC_API_KEY}&limit=${limit}&offset=${offset}&orderBy=title`;
+  const url = `/comics?apikey=${PUBLIC_API_KEY}&limit=${limit}&offset=${offset}&orderBy=title&noVariants=true`;
   return axios.get(url);
 }
 
@@ -35,7 +34,7 @@ export function fetchComics(offset = 0, limit = 30): AxiosPromise<Comic[]> {
  * @return {AxiosPromise<Comic[]>}
  */
 export function searchComics(query, offset = 0, limit = 30): AxiosPromise<Comic[]> {
-  const url = `/comics?apikey=${PUBLIC_API_KEY}&limit=${limit}&offset=${offset}&titleStartsWith=${query}`;
+  const url = `/comics?apikey=${PUBLIC_API_KEY}&limit=${limit}&offset=${offset}&titleStartsWith=${query}&noVariants=true`;
   return axios.get(url);
 }
 

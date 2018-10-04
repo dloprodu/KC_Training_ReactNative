@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as ComicsActions from '../../../redux/comics/actions';
 import View from './comics';
 
+import { Actions } from 'react-native-router-flux';
+
 // nos subscribimos a los cambios de valor de estas valores
 const mapStateToProps = (state) => {
   return {
@@ -24,7 +26,7 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onComicTapped: (comic) => {
       dispatch( ComicsActions.setItem(comic) );
-      // Actions.characters({ title: comic.nombre });
+      Actions.comicDetail({ title: comic.title });
     }
   };
 }

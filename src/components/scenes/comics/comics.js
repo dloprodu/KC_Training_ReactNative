@@ -62,7 +62,7 @@ export default class Comics extends Component {
     }
 
     return (
-      <View style={{ alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 0, left: 0, bottom: 0, right: 0}}>
+      <View style={styles.containerNotFound}>
         <Text style={{ fontSize: 36, color: '#fff' }}>{'Not comics found :('}</Text>
       </View>
     );

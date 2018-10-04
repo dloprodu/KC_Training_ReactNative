@@ -25,11 +25,10 @@ export function setItem(value) {
 
 export function fetchComicsList() {
   return (dispatch, getState) => {
-    console.log('getState: ', getState());
-
     AsyncStorage.getItem('comicsList', (err, res) => {
       if (err || !res) {
         dispatch( setFetching(true) );
+        dispatch( setList([]) );
         return;
       }
 
@@ -43,7 +42,6 @@ export function fetchComicsList() {
 
         dispatch( setFetching(false) );
         if (!res || !res.data || !res.data.data || !res.data.data.results) {
-          dispatch( setList([]) );
           return
         }
 
@@ -75,8 +73,6 @@ export function searchComicsList(query) {
           dispatch( setList([]) );
           return
         }
-
-        AsyncStorage.setItem('comicsList', JSON.stringify( res.data.data.results ));
 
         dispatch( setList( res.data.data.results ) );
       })

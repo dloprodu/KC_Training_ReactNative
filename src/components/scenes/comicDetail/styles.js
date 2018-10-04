@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+
 import * as theme from '../../../common/theme';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: theme.PrimaryColor,
-    marginVertical: 1
+    flex: 1,
+    backgroundColor: theme.PrimaryColor
   },
   containerImage: {
     width: '100%',
@@ -18,17 +19,13 @@ export default StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 220,
+    height: 220
   },
-  detailContainer: {
-    flexDirection: 'row',
+  dataContainer: {
     padding: 20,
+    flexDirection: 'row'
   },
-  label: {
-    color: 'white',
+  text: {
+    color: theme.TextColor,
   },
-  name: {
-    fontWeight: 'bold',
-    flex: 1,
-  }
 })
