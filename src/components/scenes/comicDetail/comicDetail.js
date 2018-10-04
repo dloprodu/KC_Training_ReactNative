@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { View, Text, Animated } from 'react-native';
+import { View, Text, Animated, FlatList, ScrollView } from 'react-native';
 
 import styles from './styles';
-import { Button } from '../../widgets';
+import { Button, CharacterCell } from '../../widgets';
 
 export default class extends React.Component {
   static defaultProps = {
@@ -62,6 +62,35 @@ export default class extends React.Component {
     }
   }
 
+  _renderCharacters() {
+    if (!this.props.characters || !this.props.characters.length) {
+      return null;
+    }
+
+    return (
+      <View style={styles.containerCharacters}>
+        <FlatList
+          hidden={this.props.characters.lenght === 0}
+          data={this.props.characters}
+          horizontal={1}
+          // extraData={this.state}
+          renderItem={ value => this._renderItem(value) }
+          keyExtractor={ (item, i) => `cell${item.id}` }
+          style={{height: 160}}
+          />
+      </View>
+      )
+  }
+
+  _renderItem({ item, index }) {
+    return (
+      <CharacterCell 
+        character={item} 
+        index={index}
+        />
+      )
+  }
+
   render() {
     const { comic } = this.props
     
@@ -74,25 +103,30 @@ export default class extends React.Component {
     const characters = comic && comic.characters && comic.characters.available;
 
     return (
-      <View style={styles.container}>
-        <Animated.View style={[styles.containerImage, { height: this.state.containerHeight }]}>
-          <Animated.Image 
-            source={image} 
-            resizeMode={'stretch'} 
-            style={[styles.image, { height: this.state.imageHeight }]}/>
-        </Animated.View>
-        <View style={styles.dataContainer}>
-          <Text style={[styles.text, {flex: 1}]}>{'Format: '}{format}</Text>
-          <Text style={styles.text}>{'Characters: '}{characters}</Text>
-        </View>
-        <View style={styles.dataContainer}>
-          <Text style={styles.text}>{description}</Text>
-        </View>
+      <ScrollView style={styles.containerScrollable}>
+        <View style={styles.container}>
+          <Animated.View style={[styles.containerImage, { height: this.state.containerHeight }]}>
+            <Animated.Image 
+              source={image} 
+              resizeMode={'stretch'} 
+              style={[styles.image, { height: this.state.imageHeight }]}/>
+          </Animated.View>
+          
+          {this._renderCharacters()}
+          
+          <View style={styles.dataContainer}>
+            <Text style={[styles.text, {flex: 1}]}>{'Format: '}{format}</Text>
+            <Text style={styles.text}>{'Characters: '}{characters}</Text>
+          </View>
+          <View style={styles.dataContainer}>
+            <Text style={styles.text}>{description}</Text>
+          </View>
 
-        <View style={{margin: 20}}>
-          <Button label={'Ocultar Imagen'} onPress={() => this._onShowImage()} />
+          <View style={{margin: 20}}>
+            <Button label={'Hide picture'} onPress={() => this._onShowImage()} />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }

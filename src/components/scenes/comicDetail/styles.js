@@ -3,6 +3,9 @@ import { StyleSheet } from 'react-native';
 import * as theme from '../../../common/theme';
 
 export default StyleSheet.create({
+  containerScrollable: {
+    backgroundColor: theme.PrimaryColor
+  },
   container: {
     flex: 1,
     backgroundColor: theme.PrimaryColor
@@ -16,6 +19,11 @@ export default StyleSheet.create({
     borderBottomWidth: 3,
     borderBottomColor: theme.SecondaryColor,
     backgroundColor: theme.TertiaryColor
+  },
+  containerCharacters: {
+    borderStyle: 'solid',
+    borderBottomWidth: 3,
+    borderBottomColor: theme.SecondaryColor,
   },
   image: {
     width: '100%',
