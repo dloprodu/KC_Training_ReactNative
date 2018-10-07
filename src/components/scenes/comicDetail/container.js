@@ -2,6 +2,7 @@ import View from './comicDetail';
 import * as CharactersActions from '../../../redux/characters/actions';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 const mapStateToProps = (state) => {
   return {
@@ -15,6 +16,9 @@ const mapDispatchToProps = (dispatch, props) => {
     fetchCharactersList: (comicId) => {
       dispatch( CharactersActions.fetchCharactersList(comicId) );
     },
+    addNewCharacter: () => {
+      Actions.characterAdd();
+    }
   }
 }
 

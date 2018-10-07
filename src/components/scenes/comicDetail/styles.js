@@ -29,8 +29,15 @@ export default StyleSheet.create({
     width: '100%',
     height: 220
   },
+  toolbarContainer: {
+    padding: 10,
+    flexDirection: 'row',
+  },
+  link: {
+    color: theme.LinkColor
+  },
   dataContainer: {
-    padding: 20,
+    padding: 10,
     flexDirection: 'row'
   },
   text: {

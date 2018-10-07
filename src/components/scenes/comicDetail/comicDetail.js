@@ -113,7 +113,9 @@ export default class extends React.Component {
           </Animated.View>
           
           {this._renderCharacters()}
-          
+          <View style={styles.toolbarContainer}>
+            <Text style={styles.link} onPress={() => this.props.addNewCharacter()}>{'Add character'}</Text>
+          </View>          
           <View style={styles.dataContainer}>
             <Text style={[styles.text, {flex: 1}]}>{'Format: '}{format}</Text>
             <Text style={styles.text}>{'Characters: '}{characters}</Text>

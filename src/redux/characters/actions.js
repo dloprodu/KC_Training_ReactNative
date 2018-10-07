@@ -46,3 +46,40 @@ export function fetchCharactersList(comicId) {
       });
   };
 }
+
+export function postCharacter(data) {
+  return (dispatch, getState, api) => {
+    if (!data) {
+      return;
+    }
+
+    /*
+    const house = getState().houses.item;
+
+    if (!house) {
+      return;
+    }
+
+    const characterData = {
+      ...data,
+      casa: house.id
+    };
+
+    dispatch( setFetching(true) );
+
+    api
+      .postHouseCharacter(characterData)
+      .then( res => {
+        dispatch( setFetching(false) );
+
+        dispatch( fetchHouseCharacters() );
+
+        Actions.pop();
+      })
+      .catch( err => {
+        dispatch( setFetching(false) );
+        console.log('fetchCharacters error: ', err);
+      });
+      */
+  };
+}

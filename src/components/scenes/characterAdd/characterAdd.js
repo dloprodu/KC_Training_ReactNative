@@ -1,0 +1,133 @@
+import React, { Component } from 'react';
+import { View, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { Button, TextInput } from '../../widgets';
+
+import ImagePicker from 'react-native-image-picker';
+
+import styles from './styles';
+
+export default class extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      name: '',
+      age: '',
+      image: ''
+    };
+
+    this.options = {
+      title: 'Select image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+  }
+
+  _validateForm() {
+    const { name, age, image } = this.state
+
+    if (name && age && image && image.data) {
+      return true;
+    }
+
+    return false;
+  }
+
+  _onSubmit() {
+    if (!this._validateForm()) {
+      Alert.alert('Atención', 'Complete todos los campos');
+      return;
+    }
+
+    const { name, age, image } = this.state;
+    const data = {
+      nombre: name,
+      edad: age,
+      image: image.data
+    }
+
+    this.props.onSubmitCharacter(data);
+  }
+
+  _onImagePickerTapped() {
+    console.log(this.options);
+    console.log(ImagePicker);
+
+    if (!ImagePicker) {
+      return
+    }
+
+    ImagePicker.showImagePicker(this.options, (response) => {
+      console.log('Response = ', response);
+  
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        let preview = { uri: response.uri };
+        let data = `data:image/jpeg;base64,${response.data}`;
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+    
+        this.setState({
+          image: { preview, data }
+        });
+      }
+    });
+  }
+
+  _renderImageInput() {
+      const imageUri = this.state.image ? this.state.image.preview : null
+      const imageLabel = this.state.image ? 'Press to select other thumbnail' : 'Press to select a thumbnail';
+      return (
+        <View style={{ marginTop: 20 }}>
+          <TouchableOpacity style={styles.imageContainer} onPress={() => this._onImagePickerTapped()}>
+            <Image source={imageUri} style={styles.image} resizeMode={'cover'} />
+            <Text style={styles.imageButton}>{imageLabel}</Text>
+          </TouchableOpacity>
+        </View>
+      )
+  }
+
+  render() {
+    return (
+      <ScrollView style={styles.scrollableContainer}>
+        <View style={styles.container}>
+          <View style={{padding: 20}}>
+            <TextInput 
+                label={'Name:'}
+                value={this.state.name}
+                onChangeText={ name => this.setState({ name }) }
+                placeholder={'Type the name...'}
+                />
+          </View>
+          <View style={{padding: 20}}>
+            <TextInput 
+                label={'Description:'}
+                value={this.state.age}
+                onChangeText={ age => this.setState({ age }) }
+                multiline={true}
+                placeholder={'Small description...'}
+                />
+          </View>
+
+          <View style={{ paddingHorizontal: 20, paddingBottom: 40}}>
+            { this._renderImageInput() }
+          </View>
+
+          <View style={{paddingHorizontal: 20, paddingBottom: 20}}>
+            <Button 
+                label={'Save'.toUpperCase()} 
+                isFetching={this.props.isFetching} 
+                onPress={() => this._onSubmit()} />
+          </View>
+        </View>
+      </ScrollView>
+    )
+  }
+}

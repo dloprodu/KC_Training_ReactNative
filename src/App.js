@@ -11,7 +11,7 @@ import { StatusBar } from 'react-native';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
 
-import { Comics, ComicDetail } from './components/scenes';
+import { Comics, ComicDetail, CharacterAdd } from './components/scenes';
 import * as api from './api';
 
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -61,6 +61,11 @@ export default class App extends Component<Props> {
             <Scene key="comicDetail"
                 component={ComicDetail} 
                 title="Comic Detail" 
+                {...sceneDefaultStules}>
+            </Scene>
+            <Scene key="characterAdd"
+                component={CharacterAdd} 
+                title="New character" 
                 {...sceneDefaultStules}>
             </Scene>
           </Stack>

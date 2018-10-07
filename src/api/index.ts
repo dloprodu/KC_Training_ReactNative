@@ -10,7 +10,8 @@ const BASE_URL = 'https://gateway.marvel.com/v1/public';
 
 export function configureAxios() {
   axios.defaults.baseURL = BASE_URL;
-  axios.defaults.headers['Referer'] = ORIGIN;
+  axios.defaults.headers.post['Content-Type'] = 'application/json';
+  axios.defaults.headers.common['Referer'] = ORIGIN;
 }
 
 /**
