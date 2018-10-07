@@ -4,7 +4,7 @@ App que permite buscar comics Marvel y consultar detalles como sus personajes.
 
 ## Dashboard
 
-[logo]: https://github.com/dloprodu/KC_Training_ReactNative/resources/ComicsApp_Dashboard.png "Dashboard"
+![GitHub Logo]:(/resources/ComicsApp_Dashboard.png)
 
 ## Comic Detail
 
