@@ -51,3 +51,10 @@ export function fetchCharacters(comicId): AxiosPromise<Character[]> {
   const url = `/comics/${comicId}/characters?apikey=${PUBLIC_API_KEY}`;
   return axios.get(url);
 }
+
+export function postComicCharacter(character) {
+  // TODO: Here there should be a real post call.
+  return new Promise((resolve, reject) => {
+    resolve(character);
+  });
+}

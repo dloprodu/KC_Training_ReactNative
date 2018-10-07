@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import * as types from './types';
 import * as api from '../../api';
+import { Actions } from 'react-native-router-flux';
 
 function setFetching(value) {
   return {
@@ -53,26 +54,29 @@ export function postCharacter(data) {
       return;
     }
 
-    /*
-    const house = getState().houses.item;
+    console.log(data);
 
-    if (!house) {
+    const comic = getState().comics.item;
+
+    if (!comic) {
       return;
     }
 
     const characterData = {
-      ...data,
-      casa: house.id
+      name: data.name,
+      description: data.description,
+      thumbnail: { path: data.thumbnail, extension: '' },
+      comics: [ comic ]
     };
 
     dispatch( setFetching(true) );
 
     api
-      .postHouseCharacter(characterData)
+      .postComicCharacter(characterData)
       .then( res => {
         dispatch( setFetching(false) );
 
-        dispatch( fetchHouseCharacters() );
+        dispatch( fetchCharactersList(comic.id) );
 
         Actions.pop();
       })
@@ -80,6 +84,5 @@ export function postCharacter(data) {
         dispatch( setFetching(false) );
         console.log('fetchCharacters error: ', err);
       });
-      */
   };
 }

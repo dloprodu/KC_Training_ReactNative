@@ -12,8 +12,8 @@ export default class extends Component {
 
     this.state = {
       name: '',
-      age: '',
-      image: ''
+      description: '',
+      thumbnail: ''
     };
 
     this.options = {
@@ -26,9 +26,9 @@ export default class extends Component {
   }
 
   _validateForm() {
-    const { name, age, image } = this.state
+    const { name, description, thumbnail } = this.state
 
-    if (name && age && image && image.data) {
+    if (name && description && thumbnail && thumbnail.data) {
       return true;
     }
 
@@ -37,15 +37,15 @@ export default class extends Component {
 
   _onSubmit() {
     if (!this._validateForm()) {
-      Alert.alert('Atención', 'Complete todos los campos');
+      Alert.alert('Atención', 'Please, complete all the fields');
       return;
     }
 
-    const { name, age, image } = this.state;
+    const { name, description, thumbnail } = this.state;
     const data = {
-      nombre: name,
-      edad: age,
-      image: image.data
+      name: name,
+      description: description,
+      thumbnail: thumbnail.data
     }
 
     this.props.onSubmitCharacter(data);
@@ -75,15 +75,15 @@ export default class extends Component {
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
     
         this.setState({
-          image: { preview, data }
+          thumbnail: { preview, data }
         });
       }
     });
   }
 
   _renderImageInput() {
-      const imageUri = this.state.image ? this.state.image.preview : null
-      const imageLabel = this.state.image ? 'Press to select other thumbnail' : 'Press to select a thumbnail';
+      const imageUri = this.state.thumbnail ? this.state.thumbnail.preview : null
+      const imageLabel = this.state.thumbnail ? 'Press to select other thumbnail' : 'Press to select a thumbnail';
       return (
         <View style={{ marginTop: 20 }}>
           <TouchableOpacity style={styles.imageContainer} onPress={() => this._onImagePickerTapped()}>
@@ -109,8 +109,8 @@ export default class extends Component {
           <View style={{padding: 20}}>
             <TextInput 
                 label={'Description:'}
-                value={this.state.age}
-                onChangeText={ age => this.setState({ age }) }
+                value={this.state.description}
+                onChangeText={ description => this.setState({ description }) }
                 multiline={true}
                 placeholder={'Small description...'}
                 />
