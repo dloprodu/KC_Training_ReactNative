@@ -31,7 +31,7 @@ export default class extends Component {
     const { character, index } = this.props;
     const name = character ? character.name : '';
     const image = character && character.thumbnail
-      ? { uri: `${character.thumbnail.path}.${character.thumbnail.extension}` } 
+      ? { uri: `${character.thumbnail.path}${character.thumbnail.extension ? `.${character.thumbnail.extension}` : ``}` } 
       : null;
 
     return (

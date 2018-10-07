@@ -1,4 +1,3 @@
-import { AsyncStorage } from 'react-native';
 import * as types from './types';
 import * as api from '../../api';
 import { Actions } from 'react-native-router-flux';
@@ -34,12 +33,23 @@ export function fetchCharactersList(comicId) {
       .then( res => {
         console.log('FetchCharacters: ', res);
 
-        dispatch( setFetching(false) );
-        if (!res || !res.data || !res.data.data || !res.data.data.results) {
-          return
-        }
+        const characters = !res || !res.data || !res.data.data || !res.data.data.results
+          ? []
+          : res.data.data.results;
 
-        dispatch( setList( res.data.data.results ) );
+        api.fetchLocalCharacters()
+          .then(localCharacters => {
+            localCharacters = localCharacters.filter(local => local.comicId === comicId);
+            result = [ ...localCharacters, ...characters];
+            console.log('mergeList: ', result);
+
+            dispatch( setFetching(false) );
+            dispatch( setList( result ) );
+          })
+          .catch(() => {
+            dispatch( setFetching(false) );
+            dispatch( setList( characters ) );
+          })
       })
       .catch( err => {
         dispatch( setFetching(false) );
@@ -66,7 +76,7 @@ export function postCharacter(data) {
       name: data.name,
       description: data.description,
       thumbnail: { path: data.thumbnail, extension: '' },
-      comics: [ comic ]
+      comicId: comic.id
     };
 
     dispatch( setFetching(true) );

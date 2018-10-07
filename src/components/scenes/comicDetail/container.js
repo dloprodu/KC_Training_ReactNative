@@ -7,7 +7,8 @@ import { Actions } from 'react-native-router-flux';
 const mapStateToProps = (state) => {
   return {
     comic: state.comics.item,
-    characters: state.characters.list
+    characters: state.characters.list,
+    isFetching: state.characters.isFetching
   }
 }
 

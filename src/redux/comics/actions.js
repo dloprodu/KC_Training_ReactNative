@@ -27,12 +27,15 @@ export function fetchComicsList() {
   return (dispatch, getState) => {
     AsyncStorage.getItem('comicsList', (err, res) => {
       if (err || !res) {
-        dispatch( setFetching(true) );
         dispatch( setList([]) );
+        dispatch( setFetching(true) );
         return;
       }
 
-      dispatch( setList(  JSON.parse( res ) ) );
+      const list = JSON.parse( res );
+
+      dispatch( setFetching(!list || !list.length) );
+      dispatch( setList( list ) );
     });
 
     api

@@ -1,5 +1,5 @@
 import axios, { AxiosPromise } from 'axios';
-
+import { AsyncStorage } from 'react-native';
 import { Comic, Character } from './models';
 
 const PUBLIC_API_KEY = '01a836d781951559381f4c504ecd9957';
@@ -55,6 +55,53 @@ export function fetchCharacters(comicId): AxiosPromise<Character[]> {
 export function postComicCharacter(character) {
   // TODO: Here there should be a real post call.
   return new Promise((resolve, reject) => {
-    resolve(character);
+    _addLocalCharacter(character)
+      .then(list => resolve(list))
+      .catch(err => reject(err));
   });
+}
+
+export function fetchLocalCharacters() {
+  return new Promise((resolve, reject) => {
+    AsyncStorage.getItem('characters', (err, res) => {
+      if (err || !res) {
+        resolve([]);
+        return;
+      }
+  
+      try {
+        resolve( JSON.parse( res ) );
+      } catch {
+        resolve([]);
+      }
+    });
+  });
+}
+
+function _addLocalCharacter(character) {
+  return new Promise((resolve, reject) => {
+    fetchLocalCharacters()
+      .then((list: Array<Character>) => {
+        character.id = makeid();
+
+        list = [ ...list, character ];
+
+        AsyncStorage.setItem('characters', JSON.stringify( list ));
+
+        resolve(list);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
 }
